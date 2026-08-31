@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/feature/home.dart';
+import 'package:news_app/feature/home/home.dart';
 
 abstract class RoutesManager {
   static const String home = '/home';
