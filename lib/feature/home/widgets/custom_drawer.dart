@@ -5,7 +5,8 @@ import 'package:news_app/core/resources/colors_manager.dart';
 import 'package:news_app/l10n/app_localizations.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+  const CustomDrawer({super.key, required this.onTap});
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +35,24 @@ class CustomDrawer extends StatelessWidget {
             padding: REdgeInsets.all(16.sp),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Image.asset(IconAssetsManager.icHome),
-                    SizedBox(width: 8.w),
-                    Text(
-                      localization.goToHome,
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: ColorsManager.white,
+                InkWell(
+                  onTap: () {
+                    onTap();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(IconAssetsManager.icHome),
+                      SizedBox(width: 8.w),
+                      Text(
+                        localization.goToHome,
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                          color: ColorsManager.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
 
                 SizedBox(height: 24.h),

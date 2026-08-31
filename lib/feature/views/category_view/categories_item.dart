@@ -6,12 +6,10 @@ class CategoryItem extends StatelessWidget {
   CategoryItem({super.key, required this.index});
   final int index;
   final List<CategoryModels> categories = CategoryModels.categories;
-  bool isCategory = true;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _onTap,
       child: Container(
         height: 198.h,
         decoration: BoxDecoration(
@@ -21,9 +19,5 @@ class CategoryItem extends StatelessWidget {
         child: Image.asset(categories[index].image!, fit: BoxFit.cover),
       ),
     );
-  }
-
-  void _onTap() {
-    isCategory = false;
   }
 }

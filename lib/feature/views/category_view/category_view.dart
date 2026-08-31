@@ -5,7 +5,9 @@ import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/models/category_models.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({super.key});
+  const CategoryView({super.key, required this.categoryClick});
+
+  final void Function() categoryClick;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,12 @@ class CategoryView extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
-                return CategoryItem(index: index);
+                return InkWell(
+                  child: CategoryItem(index: index),
+                  onTap: () {
+                    categoryClick();
+                  },
+                );
               },
 
               separatorBuilder: (_, _) {
