@@ -1,54 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:news_app/apis/artical_response/article.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
-import 'package:news_app/models/article_model.dart';
 
 class ArticleItem extends StatelessWidget {
-  ArticleItem({super.key, required this.article});
-  final ArticleModel article;
+  final Article article;
+
+  const ArticleItem({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: REdgeInsets.all(8),
-      height: 322.h,
+      padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.sp),
-        border: Border.all(color: ColorsManager.white),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.grey.shade800),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(16.sp),
-            child: Image.asset(
-              "assets/images/test.jpg",
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 220.h,
-            ),
+            borderRadius: BorderRadius.circular(12.r),
+            child: article.urlToImage != null && article.urlToImage!.isNotEmpty
+                ? Image.network(
+                    article.urlToImage!,
+                    height: 150.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => _buildPlaceholderImage(),
+                  )
+                : _buildPlaceholderImage(),
           ),
 
-          SizedBox(height: 10.h),
+          SizedBox(height: 8.h),
+
           Text(
-            article.description!,
+            article.title ?? '',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(height: 10.h),
+
+          SizedBox(height: 8.h),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                article.author!,
-                style: Theme.of(context).textTheme.labelSmall,
+              Expanded(
+                child: Text(
+                  article.author ?? 'Unknown',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
               ),
-
+              SizedBox(width: 8.w),
               Text(
-                article.publishedAt!,
+                article.publishedAt ?? '',
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPlaceholderImage() {
+    return Container(
+      height: 150.h,
+      width: double.infinity,
+      color: ColorsManager.grayA0,
+      child: const Icon(
+        Icons.broken_image,
+        color: ColorsManager.white,
+        size: 40,
       ),
     );
   }

@@ -3,11 +3,11 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:news_app/feature/views/category_view/categories_item.dart';
 import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/models/category_models.dart';
+import 'package:news_app/provider/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({super.key, required this.categoryClick});
-
-  final void Function() categoryClick;
+  const CategoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,10 @@ class CategoryView extends StatelessWidget {
                 return InkWell(
                   child: CategoryItem(index: index),
                   onTap: () {
-                    categoryClick();
+                    Provider.of<HomeScreenProvider>(
+                      context,
+                      listen: false,
+                    ).goToSources(CategoryModels.categories[index]);
                   },
                 );
               },

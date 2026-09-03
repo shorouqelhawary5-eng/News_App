@@ -1,45 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/feature/home/widgets/custom_drawer.dart';
-import 'package:news_app/feature/views/category_view/category_view.dart';
-import 'package:news_app/feature/views/sources_view/sources_view.dart';
+
 import 'package:news_app/l10n/app_localizations.dart';
+import 'package:news_app/provider/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late Widget view = CategoryView(categoryClick: categoryClick);
 
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(localization.home),
+        title: Consumer<HomeScreenProvider>(
+          builder: (context, provider, _) {
+            return Text(provider.selectedCategory ?? localization.home);
+          },
+        ),
         actions: [Icon(Icons.search)],
         centerTitle: true,
-        backgroundColor: Colors.transparent,
       ),
-      drawer: CustomDrawer(onTap: goToCategories),
+      drawer: CustomDrawer(),
 
-      body: view,
+      body: Provider.of<HomeScreenProvider>(context).view,
     );
-  }
-
-  void categoryClick() {
-    setState(() {
-      view = SourcesView();
-    });
-  }
-
-  void goToCategories() {
-    setState(() {
-      view = CategoryView(categoryClick: categoryClick);
-    });
-    Navigator.pop(context);
   }
 }

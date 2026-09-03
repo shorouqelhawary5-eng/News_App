@@ -9,31 +9,39 @@ class CategoryModels {
 
   static List<CategoryModels> categories = [
     CategoryModels(
-      id: '0',
+      id: 'general',
       title: 'General',
       image: ImageAssetsManager.general,
     ),
     CategoryModels(
-      id: '1',
+      id: 'business',
       title: 'Business',
       image: ImageAssetsManager.business,
     ),
     CategoryModels(
-      id: '2',
+      id: 'technology',
       title: 'Technology',
       image: ImageAssetsManager.technology,
     ),
     CategoryModels(
-      id: '3',
+      id: 'entertainment',
       title: 'Entertainment',
       image: ImageAssetsManager.entertainment,
     ),
-    CategoryModels(id: '4', title: 'Sports', image: ImageAssetsManager.sports),
     CategoryModels(
-      id: '5',
+      id: 'sports',
+      title: 'Sports',
+      image: ImageAssetsManager.sports,
+    ),
+    CategoryModels(
+      id: 'science',
       title: 'Science',
       image: ImageAssetsManager.science,
     ),
-    CategoryModels(id: '6', title: 'Health', image: ImageAssetsManager.health),
+    CategoryModels(
+      id: 'health',
+      title: 'Health',
+      image: ImageAssetsManager.health,
+    ),
   ];
 }

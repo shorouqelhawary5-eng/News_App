@@ -3,10 +3,13 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:news_app/core/resources/assets_manager.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
 import 'package:news_app/l10n/app_localizations.dart';
+import 'package:news_app/provider/home_screen_provider.dart';
+import 'package:news_app/provider/language_provider.dart';
+import 'package:news_app/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key, required this.onTap});
-  final void Function() onTap;
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,11 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    onTap();
+                    Provider.of<HomeScreenProvider>(
+                      context,
+                      listen: false,
+                    ).goToCategories();
+                    Navigator.pop(context);
                   },
                   child: Row(
                     children: [
@@ -74,42 +81,67 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 16.h),
-                DropdownButtonFormField<String>(
-                  value: localization.dark,
-                  dropdownColor: const Color(0xFF171717),
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: ColorsManager.white,
-                  ),
-                  style: const TextStyle(
-                    color: ColorsManager.white,
-                    fontSize: 18,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: ColorsManager.white),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: Colors.white),
-                    ),
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: localization.dark,
-                      child: Text(localization.dark),
-                    ),
-                    DropdownMenuItem(
-                      value: localization.light,
-                      child: Text(localization.light),
-                    ),
-                  ],
-                  onChanged: (value) {},
+
+                Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, _) {
+                    final currentTheme =
+                        themeProvider.themeMode == ThemeMode.dark
+                        ? localization.dark
+                        : localization.light;
+                    return DropdownButtonFormField<String>(
+                      value: currentTheme,
+                      dropdownColor: const Color(0xFF171717),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: ColorsManager.white,
+                      ),
+                      style: const TextStyle(
+                        color: ColorsManager.white,
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            color: ColorsManager.white,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: localization.dark,
+                          child: Text(localization.dark),
+                          onTap: () {
+                            Provider.of<ThemeProvider>(
+                              context,
+                              listen: false,
+                            ).toDarkTheme();
+                            Navigator.pop(context);
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: localization.light,
+                          child: Text(localization.light),
+                          onTap: () {
+                            Provider.of<ThemeProvider>(
+                              context,
+                              listen: false,
+                            ).toLightTheme();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                      onChanged: (value) {},
+                    );
+                  },
                 ),
 
                 SizedBox(height: 24.h),
@@ -131,42 +163,63 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
 
-                DropdownButtonFormField<String>(
-                  value: localization.english,
-                  dropdownColor: const Color(0xFF171717),
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: ColorsManager.white,
-                  ),
-                  style: const TextStyle(
-                    color: ColorsManager.white,
-                    fontSize: 18,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: ColorsManager.white),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: Colors.white),
-                    ),
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: localization.english,
-                      child: Text(localization.english),
-                    ),
-                    DropdownMenuItem(
-                      value: localization.arabic,
-                      child: Text(localization.arabic),
-                    ),
-                  ],
-                  onChanged: (value) {},
+                Consumer<LanguageProvider>(
+                  builder: (context, languageProvider, _) {
+                    final currentLanguage = languageProvider.language == 'en'
+                        ? localization.english
+                        : localization.arabic;
+                    return DropdownButtonFormField<String>(
+                      value: currentLanguage,
+                      dropdownColor: const Color(0xFF171717),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: ColorsManager.white,
+                      ),
+                      style: const TextStyle(
+                        color: ColorsManager.white,
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            color: ColorsManager.white,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: Colors.white),
+                        ),
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: localization.english,
+                          child: Text(localization.english),
+                          onTap: () {
+                            Provider.of<LanguageProvider>(
+                              context,
+                              listen: false,
+                            ).toEnglish();
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: localization.arabic,
+                          child: Text(localization.arabic),
+                          onTap: () {
+                            Provider.of<LanguageProvider>(
+                              context,
+                              listen: false,
+                            ).toArabic();
+                          },
+                        ),
+                      ],
+                      onChanged: (value) {},
+                    );
+                  },
                 ),
               ],
             ),
