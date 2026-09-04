@@ -4,23 +4,18 @@ import 'source.dart';
 SourcesResponse sourcesResponseFromJson(String str) =>
     SourcesResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 
-String sourcesResponseToJson(SourcesResponse data) =>
-    json.encode(data.toJson());
-
 class SourcesResponse {
   final String? status;
   final List<Source>? sources;
+  final String? error;
+  final String? errorCode;
 
-  SourcesResponse({this.status, this.sources});
-
-  SourcesResponse copyWith({String? status, List<Source>? sources}) =>
-      SourcesResponse(
-        status: status ?? this.status,
-        sources: sources ?? this.sources,
-      );
+  SourcesResponse({this.status, this.sources, this.error, this.errorCode});
 
   factory SourcesResponse.fromJson(Map<String, dynamic> json) =>
       SourcesResponse(
+        error: json["error"],
+        errorCode: json["errorCode"],
         status: json["status"] as String?,
         sources: json["sources"] == null
             ? []
@@ -30,11 +25,4 @@ class SourcesResponse {
                 ),
               ),
       );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "sources": sources == null
-        ? []
-        : List<dynamic>.from(sources!.map((x) => x.toJson())),
-  };
 }

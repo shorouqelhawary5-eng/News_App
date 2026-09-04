@@ -32,7 +32,43 @@ class _SourcesViewState extends State<SourcesView> {
     articalViewModel = ArticalViewModel();
 
     await sourceViewModel.loadSources(widget.category);
-    await articalViewModel.loadArticles(sourceViewModel.sources[0]);
+    if (sourceViewModel.errorMessage.isEmpty &&
+        sourceViewModel.sources.isNotEmpty) {
+      await articalViewModel.loadArticles(sourceViewModel.sources[0]);
+    }
+  }
+
+  Widget _buildErrorMessage(BuildContext context, String message) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: colorScheme.errorContainer,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: colorScheme.onErrorContainer,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: colorScheme.onErrorContainer,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -50,7 +86,7 @@ class _SourcesViewState extends State<SourcesView> {
               if (viewModel.isLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (viewModel.errorMessage.isNotEmpty) {
-                return Center(child: Text(viewModel.errorMessage));
+                return _buildErrorMessage(context, viewModel.errorMessage);
               } else {
                 return Padding(
                   padding: const EdgeInsets.all(16),
@@ -92,7 +128,7 @@ class _SourcesViewState extends State<SourcesView> {
               if (viewModel.isLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (viewModel.errorMessage.isNotEmpty) {
-                return Center(child: Text(viewModel.errorMessage));
+                return _buildErrorMessage(context, viewModel.errorMessage);
               } else {
                 return Expanded(
                   child: ListView.separated(

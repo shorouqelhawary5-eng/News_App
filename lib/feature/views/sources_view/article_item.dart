@@ -28,7 +28,7 @@ class ArticleItem extends StatelessWidget {
                     height: 150.h,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => _buildPlaceholderImage(),
+                    errorBuilder: (_, _, _) => _buildPlaceholderImage(),
                   )
                 : _buildPlaceholderImage(),
           ),

@@ -4,6 +4,11 @@ import 'package:news_app/core/resources/colors_manager.dart';
 abstract class ThemeManager {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.black,
+    colorScheme: const ColorScheme.dark(
+      error: ColorsManager.error,
+      errorContainer: ColorsManager.errorContainer,
+      onErrorContainer: ColorsManager.white,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       foregroundColor: ColorsManager.white,
@@ -36,6 +41,11 @@ abstract class ThemeManager {
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.white,
+    colorScheme: const ColorScheme.light(
+      error: ColorsManager.error,
+      errorContainer: ColorsManager.errorContainer,
+      onErrorContainer: ColorsManager.white,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       foregroundColor: ColorsManager.black,
