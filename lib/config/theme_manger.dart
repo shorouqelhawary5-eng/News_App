@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
 
 abstract class ThemeManager {
@@ -35,6 +36,22 @@ abstract class ThemeManager {
         fontSize: 12,
         fontWeight: FontWeight.w500,
         color: ColorsManager.grayA0,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.black,
+      ),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        backgroundColor: ColorsManager.black,
+        foregroundColor: ColorsManager.white,
+        textStyle: const TextStyle(fontSize: 16),
       ),
     ),
   );
@@ -76,6 +93,21 @@ abstract class ThemeManager {
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: ColorsManager.black,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.white,
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        backgroundColor: ColorsManager.white,
+        foregroundColor: ColorsManager.black,
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
       ),
     ),
   );
