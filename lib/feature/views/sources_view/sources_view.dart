@@ -52,10 +52,7 @@ class _SourcesViewState extends State<SourcesView> {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.error_outline,
-              color: colorScheme.onErrorContainer,
-            ),
+            Icon(Icons.error_outline, color: colorScheme.onErrorContainer),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
