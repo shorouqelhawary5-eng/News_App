@@ -1,0 +1,30 @@
+flutter_native_splash:
+
+  # 2. run the following command in the terminal:
+  # dart run flutter_native_splash:create
+  # or if you place this not in pubspec.yaml and not in flutter_native_splash.yaml:
+
+ 
+  color: "#171717"  ##====================================[REQUIRED]==========
+
+  image:                assets/images/news_logo_dark.png
+ 
+
+ 
+  
+  #! ANDROID 12+ configuration:
+  android_12:
+    # background color
+    color: "#171717"
+ 
+    image: assets/images/splash12+.png    
+    # image_dark: assets/images/logo/logo-splash2.png  
+
+    # center-logo background color
+    icon_background_color: "#171717"
+    # icon_background_color_dark: "#eeeeee"
+
+    # branding:
+    # The branding image dimensions must be 800x320 px.
+    #branding:      assets/dart.png      
+    #branding_dark: assets/dart_dark.png
