@@ -89,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
                         ? localization.dark
                         : localization.light;
                     return DropdownButtonFormField<String>(
-                      value: currentTheme,
+                      initialValue: currentTheme,
                       dropdownColor: const Color(0xFF171717),
                       icon: const Icon(
                         Icons.arrow_drop_down,
@@ -169,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
                         ? localization.english
                         : localization.arabic;
                     return DropdownButtonFormField<String>(
-                      value: currentLanguage,
+                      initialValue: currentLanguage,
                       dropdownColor: const Color(0xFF171717),
                       icon: const Icon(
                         Icons.arrow_drop_down,

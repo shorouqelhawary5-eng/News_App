@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/data/apis/artical_response/article.dart';
 import 'package:news_app/data/apis/result.dart';
 import 'package:news_app/data/apis/sources_response/source.dart';
-import 'package:news_app/data/repositry/artical_repositry_imp.dart';
+import 'package:news_app/data/repositry/artical/artical_repositry_imp.dart';
 
 class ArticalViewModel extends ChangeNotifier {
   List<Article> articles = [];

@@ -72,4 +72,67 @@ class ApiServices {
       }
     }
   }
+
+  Future<Result> searchArticles(String query) async {
+    try {
+      Uri url = Uri.https(baseUrl, articalEndpoint, {
+        'apiKey': apiKey,
+        'q': query,
+      });
+
+      http.Response response = await http.get(
+        url,
+        headers: {'User-Agent': 'Mozilla/5.0'},
+      );
+
+      var json = jsonDecode(response.body);
+      ArticlesResponse articlesResponse = ArticlesResponse.fromJson(json);
+
+      if (articlesResponse.status == 'error') {
+        return ServerError(
+          articlesResponse.message ?? "An error occurred",
+          articlesResponse.code ?? "",
+        );
+      } else {
+        return Success(articlesResponse.articles ?? []);
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return NetworkError("No Internet connection");
+      } else if (e is TimeoutException) {
+        return NetworkError("Connection timeout");
+      } else {
+        return NetworkError("Something went wrong. Please try again.");
+      }
+    }
+  }
+
+  // Future<Result> searchArticles(String query) async {
+  //   try {
+  //     Uri url = Uri.https(baseUrl, articalEndpoint, {
+  //       'apiKey': apiKey,
+  //       'q': query,
+  //     });
+  //     http.Response response = await http.get(url);
+
+  //     var json = jsonDecode(response.body);
+  //     ArticlesResponse articlesResponse = ArticlesResponse.fromJson(json);
+  //     if (articlesResponse.status == 'error') {
+  //       return ServerError(
+  //         articlesResponse.message ?? "Error",
+  //         articlesResponse.code ?? "",
+  //       );
+  //     } else {
+  //       return Success(articlesResponse.articles ?? []);
+  //     }
+  //   } catch (e) {
+  //     if (e is SocketException) {
+  //       return NetworkError("No Internet connection");
+  //     } else if (e is TimeoutException) {
+  //       return NetworkError("Connection timeout");
+  //     } else {
+  //       return NetworkError("Something went wrong. Please try again.");
+  //     }
+  //   }
+  // }
 }
