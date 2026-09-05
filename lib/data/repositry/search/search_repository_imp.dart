@@ -7,7 +7,7 @@ class SearchRepositoryImp implements SearchRepository {
   SearchRepositoryImp({required this.searchDataSource});
 
   @override
-  Future<Result> searchArticles(String query) async {
-    return await searchDataSource.searchArticles(query);
+  Future<Result> searchArticles(String query, {int page = 1}) async {
+    return await searchDataSource.searchArticles(query, page: page);
   }
 }

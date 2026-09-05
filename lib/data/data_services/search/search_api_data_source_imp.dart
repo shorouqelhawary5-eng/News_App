@@ -7,7 +7,7 @@ class SearchApiDataSourceImp implements SearchDataSource {
   SearchApiDataSourceImp({required this.apiServices});
 
   @override
-  Future<Result> searchArticles(String query) async {
-    return await apiServices.searchArticles(query);
+  Future<Result> searchArticles(String query, {int page = 1}) async {
+    return await apiServices.searchArticles(query, page);
   }
 }

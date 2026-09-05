@@ -10,6 +10,8 @@ class SearchViewModel extends ChangeNotifier {
   List<Article> articles = [];
   bool isLoading = false;
   String? errorMessage;
+  int page = 1;
+  String lastQuery = '';
 
   void searchArticles(String query) async {
     if (query.trim().isEmpty) {
@@ -22,9 +24,11 @@ class SearchViewModel extends ChangeNotifier {
 
     isLoading = true;
     errorMessage = null;
+    lastQuery = query;
+    page = 1;
     notifyListeners();
 
-    var result = await searchRepository.searchArticles(query);
+    var result = await searchRepository.searchArticles(query, page: page);
 
     isLoading = false;
 
@@ -40,5 +44,18 @@ class SearchViewModel extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  void loadMoreArticles() async {
+    if (lastQuery.isEmpty) return;
+
+    page++;
+    var result = await searchRepository.searchArticles(lastQuery, page: page);
+
+    if (result is Success) {
+      var newArticles = (result).data as List<Article>;
+      articles.addAll(newArticles);
+      notifyListeners();
+    }
   }
 }
