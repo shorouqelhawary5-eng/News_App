@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:news_app/apis/artical_response/article.dart';
+
 import 'package:news_app/core/resources/colors_manager.dart';
+import 'package:news_app/data/apis/artical_response/article.dart';
 import 'package:news_app/feature/views/sources_view/artical_bottom_sheet_widget.dart';
 
 class ArticleItem extends StatelessWidget {

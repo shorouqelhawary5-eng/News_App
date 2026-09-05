@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:news_app/apis/artical_response/article.dart';
+import 'package:news_app/data/apis/artical_response/article.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
 import 'package:news_app/provider/theme_provider.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
+import 'package:news_app/data/apis/api_services.dart';
+import 'package:news_app/data/data_services/artical_api_data_source.dart';
+import 'package:news_app/data/repositry/artical_repositry_imp.dart';
+import 'package:news_app/data/data_services/source_api_data_source_imp.dart';
+import 'package:news_app/data/repositry/source_repositry_imp.dart';
 import 'package:news_app/feature/views/sources_view/article_item.dart';
 
 import 'package:news_app/models/category_models.dart';
@@ -28,10 +33,19 @@ class _SourcesViewState extends State<SourcesView> {
   }
 
   void fetchData() async {
-    sourceViewModel = SourceViewModel();
-    articalViewModel = ArticalViewModel();
+    sourceViewModel = SourceViewModel(
+      sourceRepositoryImp: SourceRepositoryImp(
+        sourceDataSource: SourceApiDataSourceImp(apiServices: ApiServices()),
+      ),
+    );
+    articalViewModel = ArticalViewModel(
+      articalRepositryImp: ArticalRepositryImp(
+        articalDataSource: ArticalApiDataSourceImp(apiServices: ApiServices()),
+      ),
+    );
 
     await sourceViewModel.loadSources(widget.category);
+
     if (sourceViewModel.errorMessage.isEmpty &&
         sourceViewModel.sources.isNotEmpty) {
       await articalViewModel.loadArticles(sourceViewModel.sources[0]);

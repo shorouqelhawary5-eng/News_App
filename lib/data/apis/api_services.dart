@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/apis/artical_response/articles_response.dart';
-import 'package:news_app/apis/result.dart';
-import 'package:news_app/apis/sources_response/source.dart';
-import 'package:news_app/apis/sources_response/sources_response.dart';
+import 'package:news_app/data/apis/artical_response/articles_response.dart';
+import 'package:news_app/data/apis/result.dart';
+import 'package:news_app/data/apis/sources_response/source.dart';
+import 'package:news_app/data/apis/sources_response/sources_response.dart';
 import 'package:news_app/models/category_models.dart';
 
 class ApiServices {
@@ -15,7 +15,7 @@ class ApiServices {
   static String sourceEndpoint = '/v2/top-headlines/sources';
   static String articalEndpoint = '/v2/everything';
 
-  static Future<Object?> getSources(CategoryModels category) async {
+  Future<Result> getSources(CategoryModels category) async {
     try {
       Uri url = Uri.https(baseUrl, sourceEndpoint, {
         'apiKey': apiKey,
@@ -44,7 +44,7 @@ class ApiServices {
     }
   }
 
-  static Future<Object?> getArticles(Source source) async {
+  Future<Result> getArticles(Source source) async {
     try {
       Uri url = Uri.https(baseUrl, articalEndpoint, {
         'apiKey': apiKey,
