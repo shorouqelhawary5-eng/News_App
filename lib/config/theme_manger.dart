@@ -54,6 +54,21 @@ abstract class ThemeManager {
         textStyle: const TextStyle(fontSize: 16),
       ),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.white, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.white, width: 1),
+      ),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.white, width: 1),
+      ),
+    ),
   );
 
   static ThemeData lightTheme = ThemeData(
@@ -108,6 +123,21 @@ abstract class ThemeManager {
         backgroundColor: ColorsManager.white,
         foregroundColor: ColorsManager.black,
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.black, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.black, width: 1),
+      ),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: ColorsManager.black, width: 1),
       ),
     ),
   );

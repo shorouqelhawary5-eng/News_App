@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:news_app/core/resources/colors_manager.dart';
 import 'package:news_app/data/apis/api_services.dart';
-import 'package:news_app/data/data_services/artical_api_data_source.dart';
-import 'package:news_app/data/repositry/artical_repositry_imp.dart';
-import 'package:news_app/data/data_services/source_api_data_source_imp.dart';
-import 'package:news_app/data/repositry/source_repositry_imp.dart';
+import 'package:news_app/data/data_services/artical/artical_api_data_source.dart';
+import 'package:news_app/data/repositry/artical/artical_repositry_imp.dart';
+import 'package:news_app/data/data_services/source/source_api_data_source_imp.dart';
+import 'package:news_app/data/repositry/source/source_repositry_imp.dart';
 import 'package:news_app/feature/views/sources_view/article_item.dart';
 
 import 'package:news_app/models/category_models.dart';

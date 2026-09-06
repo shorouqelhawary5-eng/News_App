@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/routes/routes_manager.dart';
 import 'package:news_app/feature/home/widgets/custom_drawer.dart';
 
 import 'package:news_app/l10n/app_localizations.dart';
@@ -18,7 +19,12 @@ class HomeScreen extends StatelessWidget {
             return Text(provider.selectedCategory ?? localization.home);
           },
         ),
-        actions: [Icon(Icons.search)],
+        actions: [
+          InkWell(
+            onTap: () => Navigator.pushNamed(context, RoutesManager.search),
+            child: Icon(Icons.search),
+          ),
+        ],
         centerTitle: true,
       ),
       drawer: CustomDrawer(),

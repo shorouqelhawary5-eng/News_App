@@ -72,4 +72,40 @@ class ApiServices {
       }
     }
   }
+
+  Future<Result> searchArticles(String query, int page) async {
+    try {
+      Uri url = Uri.https(baseUrl, articalEndpoint, {
+        'apiKey': apiKey,
+        'q': query,
+        'page': page.toString(),
+        "pageSize": " 10",
+      });
+
+      http.Response response = await http.get(
+        url,
+        headers: {'User-Agent': 'Mozilla/5.0'},
+      );
+
+      var json = jsonDecode(response.body);
+      ArticlesResponse articlesResponse = ArticlesResponse.fromJson(json);
+
+      if (articlesResponse.status == 'error') {
+        return ServerError(
+          articlesResponse.message ?? "An error occurred",
+          articlesResponse.code ?? "",
+        );
+      } else {
+        return Success(articlesResponse.articles ?? []);
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return NetworkError("No Internet connection");
+      } else if (e is TimeoutException) {
+        return NetworkError("Connection timeout");
+      } else {
+        return NetworkError("Something went wrong. Please try again.");
+      }
+    }
+  }
 }
